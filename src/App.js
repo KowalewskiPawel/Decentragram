@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
 
-function App() {
+import isWalletConnected from "./utils/isWalletConnected";
+import connectWallet from "./utils/connectWallet";
+
+import "./App.css";
+import Wallet from "./components/Wallet";
+import Logo from "./components/Logo";
+
+const App = () => {
+  const [walletStatus, setWalletStatus] = useState("Not Connected");
+  const [walletAddress, setWalletAddress] = useState("");
+
+  useEffect(() => {
+    const onLoad = async () => {
+      await isWalletConnected(setWalletStatus, setWalletAddress);
+    };
+    window.addEventListener("load", onLoad);
+    return () => window.removeEventListener("load", onLoad);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Logo />
+      <Wallet
+        walletStatus={walletStatus}
+        walletAddress={walletAddress}
+        connectFunction={connectWallet(setWalletStatus, setWalletAddress)}
+      />
+    </>
   );
-}
+};
 
 export default App;
