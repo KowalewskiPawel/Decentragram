@@ -48,7 +48,7 @@ const Posts = () => {
       </form>
       <PostsWrapper>
         {posts.map((post) => (
-          <img src={post.url} />
+          <img src={post.url} alt="" />
         ))}
       </PostsWrapper>
     </Wrapper>
