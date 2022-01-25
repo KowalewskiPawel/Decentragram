@@ -6,6 +6,7 @@ import connectWallet from "./utils/connectWallet";
 import "./App.css";
 import Wallet from "./components/Wallet";
 import Logo from "./components/Logo";
+import Posts from "./components/Posts";
 
 const App = () => {
   const [walletStatus, setWalletStatus] = useState("Not Connected");
@@ -27,6 +28,7 @@ const App = () => {
         walletAddress={walletAddress}
         connectFunction={connectWallet(setWalletStatus, setWalletAddress)}
       />
+      {walletAddress && <Posts />}
     </>
   );
 };
